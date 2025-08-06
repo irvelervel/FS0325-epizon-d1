@@ -24,4 +24,19 @@ const mainReducer = (state = initialState, action) => {
   // con state = initialState mettiamo la prima "biglia" sul piedistallo
   // cioè alla prima invocazione del mainReducer, quando l'app si sta ancora
   // caricando, state è undefined! lo riempiamo con il nostro stato iniziale
+  // lo scopo del reducer è generare il nuovo stato di Redux a seguito di una action
+
+  switch (action.type) {
+    // sulla base dei tipi di action che il reducer intercetta
+    // noi decidiamo in che modo generare la nuova "biglia"
+    default:
+      // con il caso di default cattureremo tutte le action
+      // il cui type non è stato riconosciuto
+      return state
+    // in caso di action non riconosciuta, genero SEMPRE e comunque
+    // un nuovo stato per l'app ma in questo caso uno stato identico
+    // a quello attuale
+  }
 }
+
+export default mainReducer
