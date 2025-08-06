@@ -29,6 +29,43 @@ const mainReducer = (state = initialState, action) => {
   switch (action.type) {
     // sulla base dei tipi di action che il reducer intercetta
     // noi decidiamo in che modo generare la nuova "biglia"
+
+    case 'ADD_TO_CART':
+      // questo case ha lo stesso valore del type della action che vuole intercettare
+      return {
+        // in ogni case io devo SEMPRE ritornare la nuova biglia
+        // ovvero il nuovo valore per lo stato dell'applicativo
+        ...state,
+        cart: {
+          ...state.cart,
+          // action.payload è il libro nuovo in questo caso
+          // content: [...state.cart.content, action.payload],
+          content: state.cart.content.concat(action.payload),
+        },
+      }
+
+    case 'REMOVE_FROM_CART':
+      // creare il nuovo stato per l'app
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          content: state.cart.content.filter((libro) => {
+            if (libro.id === action.payload) {
+              return false
+            } else {
+              return true
+            }
+          }),
+          // versione PRO
+          // content: state.cart.content.filter(libro => libro.id !== action.payload)
+          // versione con l'INDICE invece dell'ID
+          // content: state.cart.content.filter((_, i) => {
+          //   return i !== action.payload
+          // }),
+        },
+      }
+
     default:
       // con il caso di default cattureremo tutte le action
       // il cui type non è stato riconosciuto
